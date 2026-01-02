@@ -52,8 +52,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             setUser(response.user);
             toast.success(`Welcome back, ${response.user.name}!`);
         } catch (error: unknown) {
-            const err = error as { response?: { data?: { error?: string } } };
-            const message = err.response?.data?.error || 'Login failed';
+            const err = error as { response?: { data?: { error?: unknown; message?: string } }; message?: string };
+            let message = 'Login failed';
+
+            if (err.response?.data?.error) {
+                const errorData = err.response.data.error;
+                message = typeof errorData === 'string' ? errorData : (errorData as { message?: string })?.message || 'Login failed';
+            } else if (err.response?.data?.message) {
+                message = err.response.data.message;
+            } else if (err.message) {
+                message = err.message;
+            }
+
             toast.error(message);
             throw error;
         }
@@ -70,8 +80,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             setUser(response.user);
             toast.success('Account created successfully!');
         } catch (error: unknown) {
-            const err = error as { response?: { data?: { error?: string } } };
-            const message = err.response?.data?.error || 'Registration failed';
+            const err = error as { response?: { data?: { error?: unknown; message?: string } }; message?: string };
+            let message = 'Registration failed';
+
+            if (err.response?.data?.error) {
+                const errorData = err.response.data.error;
+                message = typeof errorData === 'string' ? errorData : (errorData as { message?: string })?.message || 'Registration failed';
+            } else if (err.response?.data?.message) {
+                message = err.response.data.message;
+            } else if (err.message) {
+                message = err.message;
+            }
+
             toast.error(message);
             throw error;
         }
