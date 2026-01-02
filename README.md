@@ -1,8 +1,13 @@
-# 🏏 Mini Sports Platform
+# 🏏 SportZone - Mini Sports Platform
 
 A full-stack sports matches platform where users can view matches, filter by sport, search teams, and save favorites.
 
-![Sports Platform](https://images.unsplash.com/photo-1461896836934- voices-1e130f5e3be?w=800)
+## 🌐 Live Demo
+
+- **Frontend**: [https://sport-zone-dun.vercel.app](https://sport-zone-dun.vercel.app)
+- **Backend API**: [https://sportzone-9vh6.onrender.com](https://sportzone-9vh6.onrender.com)
+
+---
 
 ## 📋 Features
 
