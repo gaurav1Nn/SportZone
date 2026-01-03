@@ -1,7 +1,18 @@
+/**
+ * Authentication Middleware
+ * 
+ * Protects routes by validating JWT access tokens.
+ * Extracts user information from valid tokens and attaches to request.
+ * Returns 401 errors for missing, invalid, or expired tokens.
+ */
+
 import { Request, Response, NextFunction } from 'express';
 import { verifyAccessToken } from '../utils/jwt.js';
 import { sendError } from '../utils/response.js';
 
+/**
+ * Extended Request interface with authenticated user data
+ */
 export interface AuthRequest extends Request {
     user?: {
         userId: string;
@@ -9,6 +20,13 @@ export interface AuthRequest extends Request {
     };
 }
 
+/**
+ * JWT Authentication Middleware
+ * Validates Bearer token from Authorization header and attaches user to request
+ * @param req - Express request with Authorization header
+ * @param res - Express response for error messages
+ * @param next - Next middleware function
+ */
 export const authMiddleware = (
     req: AuthRequest,
     res: Response,

@@ -1,3 +1,12 @@
+/**
+ * API Service Configuration
+ * 
+ * Configures Axios instance with:
+ * - Base URL handling for development (Vite proxy) and production (Render)
+ * - Request interceptor to attach JWT access token
+ * - Response interceptor for automatic token refresh on 401 errors
+ */
+
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 // Use environment variable for production, fallback to /api for local dev (Vite proxy)
@@ -5,6 +14,7 @@ const API_URL = import.meta.env.VITE_API_URL
     ? `${import.meta.env.VITE_API_URL}/api`
     : '/api';
 
+// Create axios instance with default configuration
 export const api = axios.create({
     baseURL: API_URL,
     headers: {
@@ -12,7 +22,7 @@ export const api = axios.create({
     },
 });
 
-// Request interceptor to add auth token
+// Request interceptor - automatically adds JWT token to all requests
 api.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
         const accessToken = localStorage.getItem('accessToken');

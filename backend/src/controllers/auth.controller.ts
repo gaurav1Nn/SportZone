@@ -1,3 +1,14 @@
+/**
+ * Authentication Controller
+ * 
+ * Handles user authentication operations including:
+ * - User registration with password hashing
+ * - User login with JWT token generation
+ * - Token refresh for session management
+ * - User logout with token invalidation
+ * - Get current authenticated user profile
+ */
+
 import { Response } from 'express';
 import bcrypt from 'bcryptjs';
 import prisma from '../config/database.js';
@@ -5,8 +16,15 @@ import { generateTokenPair, verifyRefreshToken } from '../utils/jwt.js';
 import { sendSuccess, sendError } from '../utils/response.js';
 import { AuthRequest } from '../middleware/auth.middleware.js';
 
+// Number of salt rounds for bcrypt password hashing
 const SALT_ROUNDS = 12;
 
+/**
+ * Register a new user
+ * @route POST /api/auth/register
+ * @param req - Request with name, email, password in body
+ * @param res - Response with user data and tokens on success
+ */
 export const register = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const { name, email, password } = req.body;

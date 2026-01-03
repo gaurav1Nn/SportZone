@@ -1,15 +1,30 @@
+/**
+ * MatchCard Component
+ * 
+ * Displays a single sports match with:
+ * - Sport-specific color gradients (green/cricket, blue/football, yellow/tennis)
+ * - Match status badge (Live, Upcoming, Completed)
+ * - Team names, league, and start time
+ * - Favorite toggle button
+ */
+
 import { Match } from '../types';
 import { Heart, Clock, MapPin, Radio } from 'lucide-react';
 import { format } from '../utils/date';
 
+/** Props for MatchCard component */
 interface MatchCardProps {
-    match: Match;
-    isFavorite: boolean;
-    onToggleFavorite: (matchId: string) => void;
-    isTogglingFavorite?: boolean;
+    match: Match;                              // Match data to display
+    isFavorite: boolean;                       // Whether match is in user's favorites
+    onToggleFavorite: (matchId: string) => void; // Callback when favorite button clicked
+    isTogglingFavorite?: boolean;              // Loading state for favorite toggle
 }
 
+/**
+ * Renders a match card with details and favorite functionality
+ */
 const MatchCard = ({ match, isFavorite, onToggleFavorite, isTogglingFavorite }: MatchCardProps) => {
+    // Get status badge based on match status
     const getStatusBadge = () => {
         switch (match.status) {
             case 'LIVE':
@@ -73,8 +88,8 @@ const MatchCard = ({ match, isFavorite, onToggleFavorite, isTogglingFavorite }: 
                         onClick={() => onToggleFavorite(match.id)}
                         disabled={isTogglingFavorite}
                         className={`p-2 rounded-lg transition-all duration-200 ${isFavorite
-                                ? 'bg-rose-500/20 text-rose-400 hover:bg-rose-500/30'
-                                : 'bg-dark-800/50 text-dark-400 hover:bg-dark-700/50 hover:text-rose-400'
+                            ? 'bg-rose-500/20 text-rose-400 hover:bg-rose-500/30'
+                            : 'bg-dark-800/50 text-dark-400 hover:bg-dark-700/50 hover:text-rose-400'
                             } ${isTogglingFavorite ? 'opacity-50 cursor-not-allowed' : ''}`}
                         aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                     >

@@ -1,9 +1,27 @@
+/**
+ * Match Controller
+ * 
+ * Handles match-related operations including:
+ * - Fetching paginated list of matches with filtering and search
+ * - Getting single match details
+ * - Retrieving available sports and leagues for filters
+ */
+
 import { Response } from 'express';
 import prisma from '../config/database.js';
 import { sendSuccess, sendPaginatedSuccess, sendError } from '../utils/response.js';
 import { AuthRequest } from '../middleware/auth.middleware.js';
 import { Prisma, MatchStatus } from '@prisma/client';
 
+/**
+ * Get paginated list of matches with optional filtering and search
+ * @route GET /api/matches
+ * @query page - Page number (default: 1)
+ * @query limit - Items per page (default: 10, max: 50)
+ * @query sport - Filter by sport type
+ * @query status - Filter by match status (UPCOMING, LIVE, COMPLETED)
+ * @query search - Search by team name or league
+ */
 export const getMatches = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const {
