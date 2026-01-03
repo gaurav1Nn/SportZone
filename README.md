@@ -197,21 +197,7 @@ The seed script creates **30 sports matches** across:
 
 Match statuses include `UPCOMING`, `LIVE`, and `COMPLETED`.
 
----
 
-## 🖥️ Screenshots
-
-### Login Page
-Clean, minimal login interface with form validation.
-
-### Matches Page
-- Sport-specific card colors (green for Cricket, blue for Football, yellow for Tennis)
-- Filter by sport and status
-- Search functionality
-- Favorite toggle with heart icon
-- Load More pagination
-
----
 
 ## 👤 Author
 
